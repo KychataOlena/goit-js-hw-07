@@ -1,11 +1,11 @@
 import { galleryItems } from './gallery-items.js';
-// Change code below this line
+
 const imagesContainer = document.querySelector(".gallery");
 const cardsMarkup = createGalleryCardsMurkup(galleryItems);
+// console.log(cardsMarkup);
 
 imagesContainer.insertAdjacentHTML('beforeend', cardsMarkup);
 
-imagesContainer.addEventListener("click", onImagesContainerClick);
 
 // console.log(galleryItems);
 function createGalleryCardsMurkup(images) {
@@ -19,15 +19,24 @@ function createGalleryCardsMurkup(images) {
       data-source="${original}"
       alt="${description}"
     />
-  </a>
-</div>`;
-    }).join("");
-   
+    </a>
+    </div>`;
+  }).join("");
+  
 }
-
+// console.log(images);
+imagesContainer.addEventListener("click", onImagesContainerClick);
 function onImagesContainerClick(evt) {
+  evt.preventDefault();
     if (evt.target.nodeName !== 'IMG') {
-        return
+      return;
     }
+  const instance = basicLightbox.create(`
+    <img src="${evt.target.dataset.source}" width="800" height="600">
+`);
+
+  instance.show();
+
     // console.log(evt.target);
 }
+
